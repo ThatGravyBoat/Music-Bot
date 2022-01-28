@@ -1,0 +1,16 @@
+{
+    "botInfo": {
+        "token": "",
+        "applicationId": ""
+    },
+    "guildInfo": {
+        "guild": "",
+        "musicPlayerChannel": "",
+        "musicPlayerMessage": "",
+        "djRole": ""
+    },
+    "playerSettings": {
+        "votePercentage": 0.5,
+        "preventInstantSkip": true
+    }
+}
