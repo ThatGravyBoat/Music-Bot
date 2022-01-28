@@ -1,5 +1,5 @@
 import type { ButtonInteraction, CommandInteraction, Interaction } from 'discord.js';
-import type { Event } from '../index.js';
+import type { Event } from '../types.js';
 
 export default {
 	name: 'interactionCreate',

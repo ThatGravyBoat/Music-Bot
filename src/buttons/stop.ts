@@ -1,5 +1,5 @@
 import config from '../config.json' assert { type: 'json' };
-import type { Button } from '../index.js';
+import type { Button } from '../types.js';
 import playerMessage from '../utils/playerMessage.js';
 
 const { djRole } = config.guildInfo;

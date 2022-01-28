@@ -1,5 +1,5 @@
 import { MessageEmbed } from 'discord.js';
-import type { Button } from '../index.js';
+import type { Button } from '../types.js';
 
 export default {
 	id: 'info',

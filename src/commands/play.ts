@@ -1,7 +1,7 @@
 import type { Track } from 'discord-player';
 import { MessageEmbed } from 'discord.js';
 import config from '../config.json' assert { type: 'json' };
-import type { Command } from '../index.js';
+import type { Command } from '../types.js';
 import playerMessage from '../utils/playerMessage.js';
 
 const { djRole } = config.guildInfo;

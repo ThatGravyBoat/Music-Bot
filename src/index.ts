@@ -1,36 +1,11 @@
 import { Player, PlayerEvents } from 'discord-player';
-import { ButtonInteraction, Client, ClientEvents, Collection, CommandInteraction, Intents } from 'discord.js';
+import { Client, ClientEvents, Collection, Intents } from 'discord.js';
 import { readdir } from 'fs/promises';
 import 'source-map-support/register.js';
 import config from './config.json' assert { type: 'json' };
+import { Button, Command, Event } from './types';
 
 const { botInfo } = config;
-
-declare module 'discord.js' {
-	export interface Client {
-		player: Player;
-		currentVoteAmount: number;
-		commands: Collection<string, Command>;
-		buttons: Collection<string, Button>;
-	}
-}
-
-export interface Event {
-	name: keyof PlayerEvents | keyof ClientEvents;
-	music?: boolean;
-	once?: boolean;
-	execute(...args: any[]): any;
-}
-
-export interface Command {
-	id: string;
-	execute(command: CommandInteraction<'cached'>): any;
-}
-
-export interface Button {
-	id: string;
-	execute(button: ButtonInteraction<'cached'>): any;
-}
 
 const client = new Client({
 	intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_VOICE_STATES],

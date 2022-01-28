@@ -1,6 +1,6 @@
 import type { Queue } from 'discord-player';
 import type { Client } from 'discord.js';
-import type { Event } from '../index.js';
+import type { Event } from '../types.js';
 import playerMessage from '../utils/playerMessage.js';
 
 export default {

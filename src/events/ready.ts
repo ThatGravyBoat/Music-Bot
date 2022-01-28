@@ -1,6 +1,6 @@
 import type { Client } from 'discord.js';
 import { ActivityTypes } from 'discord.js/typings/enums';
-import type { Event } from '../index.js';
+import type { Event } from '../types.js';
 import playerMessage from '../utils/playerMessage.js';
 
 export default {
