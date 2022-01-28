@@ -6,6 +6,9 @@ const { djRole } = config.guildInfo;
 export default {
 	id: 'play_pause',
 	execute(button) {
+		const isDJ = button.member.roles.cache.has(djRole) || button.member.permissions.has('MANAGE_GUILD');
+		if (!isDJ) return button.reply({ content: 'You must be a DJ to play/pause.', ephemeral: true });
+
 		const queue = button.client.player.getQueue(button.guild);
 		if (queue) {
 			if (button.member.roles.cache.has(djRole) && queue.current) {

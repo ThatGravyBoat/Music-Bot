@@ -11,14 +11,12 @@ export default {
 	execute(command) {
 		const forced = command.options.getBoolean('force');
 
-		if (!command.member.voice.channelId)
-			return command.reply({ content: 'You are not in a voice channel!', ephemeral: true });
+		if (!command.member.voice.channelId) return command.reply({ content: 'You are not in a voice channel!' });
 		if (command.guild.me!.voice.channelId && command.member.voice.channelId !== command.guild.me!.voice.channelId)
-			return command.reply({ content: 'You are not in the voice channel with the bot!', ephemeral: true });
-		if (forced && !command.member.roles.cache.has(djRole)) {
+			return command.reply({ content: 'You are not in the voice channel with the bot!' });
+		if (forced && !(command.member.roles.cache.has(djRole) || command.member.permissions.has('MANAGE_GUILD'))) {
 			return command.reply({
-				content: 'You are not a DJ of this discord.\nThe song will not be added to queue.',
-				ephemeral: true
+				content: 'You are not a DJ of this discord.\nThe song will not be added to queue.'
 			});
 		}
 
@@ -31,13 +29,14 @@ export default {
 			if (!queue.connection) queue.connect(command.member.voice.channel!);
 		} catch {
 			queue.destroy();
-			return command.reply({ content: 'Could not join your voice channel!', ephemeral: true });
+			return command.reply({ content: 'Could not join your voice channel!' });
 		}
 
-		command.deferReply({ ephemeral: true });
+		command.deferReply();
 
 		client.player.search(song, { requestedBy: command.member }).then((result) => {
-			const track = result.tracks[1];
+			const track = result.tracks[0];
+
 			if (!track) {
 				return command.followUp({
 					embeds: [
@@ -52,19 +51,18 @@ export default {
 								}
 							]
 						})
-					],
-					ephemeral: true
+					]
 				});
 			}
 
 			if (forced) {
 				queue.insert(track, 0);
-				command.followUp({ embeds: [createQueueMessage(track, true)], ephemeral: true }).then(() => {
+				command.followUp({ embeds: [createQueueMessage(track, true)] }).then(() => {
 					if (queue.tracks.length < 8) playerMessage(client);
 				});
 			} else {
 				queue.play(track).then(() => {
-					command.followUp({ embeds: [createQueueMessage(track, false)], ephemeral: true }).then(() => {
+					command.followUp({ embeds: [createQueueMessage(track, false)] }).then(() => {
 						if (queue.tracks.length < 8) playerMessage(client);
 					});
 				});
